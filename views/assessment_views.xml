@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Assessment Form View -->
+    <record id="view_assessment_form" model="ir.ui.view">
+        <field name="name">dt.assessment.form</field>
+        <field name="model">dt.assessment</field>        
+        <field name="arch" type="xml">
+            <form string="Digital Maturity Assessment">
+                <header>
+                    <button name="action_start_assessment" string="Start Assessment" 
+                            type="object" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_submit_review" string="Submit for Review" 
+                            type="object" class="btn-primary"
+                            invisible="state != 'in_progress'"/>
+                    <button name="action_complete" string="Complete Assessment" 
+                            type="object" class="btn-primary"
+                            invisible="state != 'review'"/>
+                    <field name="state" widget="statusbar" 
+                           statusbar_visible="draft,in_progress,review,completed"/>
+                </header>
+                
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Assessment Name..."/></h1>
+                        <h3><field name="client_id" placeholder="Select Client..."/></h3>
+                    </div>
+                    
+                    <group>
+                        <group string="Assessment Details">
+                            <field name="consultant_id"/>
+                            <field name="assessment_date"/>
+                            <field name="completion_date" 
+                                   invisible="state not in ['completed']"/>
+                            <field name="progress" widget="progressbar" options="{'max_value': 100}"/>
+                        </group>
+                        
+                        <group string="Scoring">
+                            <field name="technology_score" widget="progressbar" options="{'max_value': 100}"/>
+                            <field name="process_score" widget="progressbar" options="{'max_value': 100}"/>
+                            <field name="people_score" widget="progressbar" options="{'max_value': 100}"/>
+                            <field name="culture_score" widget="progressbar" options="{'max_value': 100}"/>
+                            <field name="total_score" widget="progressbar" options="{'max_value': 100}"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Assessment Questions">
+                            <field name="assessment_line_ids" nolabel="1">
+                                <list editable="bottom">
+                                    <field name="category"/>
+                                    <field name="question_text"/>
+                                    <field name="weight"/>
+                                    <field name="answer"/>
+                                    <field name="score"/>
+                                    <field name="notes"/>
+                                </list>
+                            </field>
+                        </page>
+                        
+                        <page string="Recommendations">
+                            <group>
+                                <group string="Analysis">
+                                    <field name="priority_areas" nolabel="1" 
+                                           placeholder="Key priority areas identified..."/>
+                                </group>
+                                <group string="Project Estimates">
+                                    <field name="estimated_timeline"/>
+                                    <field name="estimated_budget" widget="monetary"/>
+                                </group>
+                            </group>
+                            <group string="Detailed Recommendations">
+                                <field name="recommendations" nolabel="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                
+                <!-- <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div> -->
+            </form>
+        </field>
+    </record>
+
+    <!-- Assessment List View -->
+    <record id="view_assessment_list" model="ir.ui.view">
+        <field name="name">dt.assessment.list</field>
+        <field name="model">dt.assessment</field>
+        <field name="arch" type="xml">
+            <list string="Digital Maturity Assessments">
+                <field name="name"/>
+                <field name="client_id"/>
+                <field name="consultant_id"/>
+                <field name="assessment_date"/>
+                <field name="total_score" widget="progressbar" options="{'max_value': 5}"/>
+                <field name="progress" widget="progressbar"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Assessment Action -->
+    <record id="action_assessment" model="ir.actions.act_window">
+        <field name="name">Assessments</field>
+        <field name="res_model">dt.assessment</field>
+        <field name="view_mode">list,form</field>
+        <!-- <field name="view_id" ref="digital_transformation_accelerator.view_assessment_list"/> -->
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first digital maturity assessment!
+            </p>
+        </field>
+    </record>
+
+</odoo>

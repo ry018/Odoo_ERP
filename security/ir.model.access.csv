@@ -1,0 +1,23 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_client_company_user,dt.client.company user,model_dt_client_company,base.group_user,1,1,1,0
+access_client_company_manager,dt.client.company manager,model_dt_client_company,base.group_system,1,1,1,1
+access_assessment_user,dt.assessment user,model_dt_assessment,base.group_user,1,1,1,0
+access_assessment_manager,dt.assessment manager,model_dt_assessment,base.group_system,1,1,1,1
+access_assessment_line_user,dt.assessment.line user,model_dt_assessment_line,base.group_user,1,1,1,0
+access_assessment_line_manager,dt.assessment.line manager,model_dt_assessment_line,base.group_system,1,1,1,1
+access_assessment_template_user,dt.assessment.template user,model_dt_assessment_template,base.group_user,1,0,0,0
+access_assessment_template_manager,dt.assessment.template manager,model_dt_assessment_template,base.group_system,1,1,1,1
+access_transformation_project_user,dt.project user,model_dt_project,base.group_user,1,1,1,0
+access_transformation_project_manager,dt.project manager,model_dt_project,base.group_system,1,1,1,1
+access_project_phase_user,dt.project.phase user,model_dt_project_phase,base.group_user,1,1,1,0
+access_project_phase_manager,dt.project.phase manager,model_dt_project_phase,base.group_system,1,1,1,1
+access_project_task_user,dt.project.task user,model_dt_project_task,base.group_user,1,1,1,0
+access_project_task_manager,dt.project.task manager,model_dt_project_task,base.group_system,1,1,1,1
+access_project_deliverable_user,dt.project.deliverable user,model_dt_project_deliverable,base.group_user,1,1,1,0
+access_project_deliverable_manager,dt.project.deliverable manager,model_dt_project_deliverable,base.group_system,1,1,1,1
+access_project_milestone_user,dt.project.milestone user,model_dt_project_milestone,base.group_user,1,1,1,0
+access_project_milestone_manager,dt.project.milestone manager,model_dt_project_milestone,base.group_system,1,1,1,1
+access_consultant_user,dt.consultant user,model_dt_consultant,base.group_user,1,1,1,0
+access_consultant_manager,dt.consultant manager,model_dt_consultant,base.group_system,1,1,1,1
+access_skill_user,dt.skill user,model_dt_skill,base.group_user,1,0,0,0
+access_skill_manager,dt.skill manager,model_dt_skill,base.group_system,1,1,1,1

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Main Menu -->
+    <menuitem id="menu_digital_transformation_root" 
+              name="Digital Transformation" 
+              sequence="10"/>
+    
+    <menuitem id="menu_dashboard" 
+             name="Dashboard" 
+             parent="menu_digital_transformation_root" 
+             action="action_dt_dashboard_window" 
+             sequence="5"/>
+
+    
+    <!-- Clients Menu -->
+    <menuitem id="menu_clients" 
+              name="Clients" 
+              parent="menu_digital_transformation_root" 
+              sequence="10"/>
+    
+  
+    <menuitem id="menu_client_companies" 
+              name="Client Companies" 
+              parent="menu_clients" 
+              action="action_client_company" 
+              sequence="10"/>
+    
+    <!-- Projects Menu -->
+    <menuitem id="menu_projects" 
+              name="Projects" 
+              parent="menu_digital_transformation_root" 
+              sequence="20"/>
+    
+    <menuitem id="menu_transformation_projects" 
+              name="Transformation Projects" 
+              parent="menu_projects" 
+              action="action_transformation_project" 
+              sequence="10"/>
+    
+    <!-- Assessments Menu -->
+    <menuitem id="menu_assessments" 
+              name="Assessments" 
+              parent="menu_digital_transformation_root" 
+              sequence="30"/>
+    
+    <menuitem id="menu_assessment_list" 
+              name="Digital Maturity Assessments" 
+              parent="menu_assessments" 
+              action="action_assessment" 
+              sequence="10"/>
+    
+    <!-- Resources Menu -->
+    <menuitem id="menu_resources" 
+              name="Resources" 
+              parent="menu_digital_transformation_root" 
+              sequence="40"/>
+    
+    <menuitem id="menu_consultants" 
+              name="Consultants" 
+              parent="menu_resources" 
+              action="action_consultant" 
+              sequence="10"/>
+
+</odoo>

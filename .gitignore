@@ -1,0 +1,25 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+
+# Odoo specific
+*.log
+*.pot
+*.pyc
+*.pyo
+*.swp
+*.egg-info/
+*.eggs/
+
+# Python virtualenv
+venv/
+.env/
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db

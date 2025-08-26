@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Client Company Form View -->
+    <record id="view_client_company_form" model="ir.ui.view">
+        <field name="name">dt.client.company.form</field>
+        <field name="model">dt.client.company</field>  <!-- ✅ add -->
+        <field name="arch" type="xml">
+            <form string="Client Company">
+                <header>
+                    <button name="action_start_assessment" 
+                            string="Start Assessment" 
+                            type="object" 
+                            class="btn-primary"/>
+                    <button name="action_create_project" 
+                            string="Create Project" 
+                            type="object" 
+                            class="btn-secondary"/>
+                    <field name="status" widget="statusbar" 
+                           statusbar_visible="prospect,assessment,proposal,active"/>
+                </header>
+                
+                <sheet>
+                    <!-- Smart Buttons -->
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_assessments" 
+                                type="object" 
+                                class="oe_stat_button" 
+                                icon="fa-clipboard-list"
+                                title="View Assessments">
+                            <field name="assessment_count" widget="statinfo" 
+                                   string="Assessments"/>
+                        </button>
+                        <button name="action_view_projects" 
+                                type="object" 
+                                class="oe_stat_button" 
+                                icon="fa-project-diagram"
+                                title="View Projects">
+                            <field name="project_count" widget="statinfo" 
+                                   string="Projects"/>
+                        </button>
+                    </div>
+                    
+                    <!-- Main Content -->
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Company Name..."/>
+                        </h1>
+                        <h3>
+                            <field name="maturity_level" readonly="1"/>
+                        </h3>
+                    </div>
+                    
+                    <group>
+                        <group string="Basic Information">
+                            <field name="partner_id"/>
+                            <field name="industry_type"/>
+                            <field name="company_size"/>
+                            <field name="annual_revenue" widget="monetary"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="onboarding_date"/>
+                        </group>
+                        
+                        <group string="Digital Maturity">
+                            <field name="digital_maturity_score" widget="progressbar"/>
+                            <field name="cloud_adoption"/>
+                            <field name="current_erp"/>
+                        </group>
+                    </group>
+                    
+                    <group string="Technology Stack">
+                        <field name="tech_stack" nolabel="1" 
+                               placeholder="Describe current technology infrastructure..."/>
+                    </group>
+                    
+                    <group>
+                        <group string="Contacts">
+                            <field name="primary_contact"/>
+                            <field name="decision_makers" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Internal Notes">
+                            <field name="notes" nolabel="1" 
+                                   placeholder="Internal notes about this client..."/>
+                        </page>
+
+                        <page string="Latest Updates">
+                            <group>                               
+                                <field name="latest_assessment_date"/>
+                                <field name="latest_assessment_score" widget="progressbar"/>
+                                <field name="latest_assessment_state" widget="badge"/>
+                                <field name="latest_project_start_date"/>
+                                <field name="latest_project_progress" widget="progressbar"/>
+                                <field name="latest_project_state" widget="badge"/>                                
+                            </group>
+                        </page>
+ 
+                        <page string="Assessments" 
+                              invisible="assessment_count == 0">
+                            <field name="assessment_ids" nolabel="1">
+                                <list>
+                            <!--    <field name="assessment_ids"/>   -->
+                                    <field name="name"/>
+                                    <field name="assessment_date"/>
+                                    <field name="total_score" widget="progressbar"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                        
+                        <page string="Projects" 
+                              invisible="project_count == 0">
+                            <field name="project_ids" nolabel="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="start_date"/>
+                                    <field name="target_completion_date"/>
+                                    <field name="progress" widget="progressbar"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                
+                <!-- Chatter (Messages and Activities) -->
+                <!-- <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div> -->
+            </form>
+        </field>
+    </record>
+
+    <!-- Client Company list view -->
+    <record id="view_client_company_list" model="ir.ui.view">
+        <field name="name">dt.client.company.list</field>
+        <field name="model">dt.client.company</field>  
+        <field name="arch" type="xml">
+            <list string="Client Companies">  
+                <field name="name"/>
+                <field name="industry_type"/>
+                <field name="company_size"/>
+                <field name="digital_maturity_score" widget="progressbar"/>
+                <field name="maturity_level" widget="badge"/>
+                <field name="status" widget="badge"/>
+                <field name="assessment_count"/>
+                <field name="project_count"/>
+                <field name="onboarding_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Client Company Kanban View -->
+    <record id="view_client_company_kanban" model="ir.ui.view">
+        <field name="name">dt.client.company.kanban</field>
+        <field name="model">dt.client.company</field>  <!-- ✅ add this -->
+        <field name="arch" type="xml">
+            <kanban default_group_by="status" class="o_kanban_small_column">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="digital_maturity_score"/>
+                <field name="maturity_level"/>
+                <field name="industry_type"/>
+                <field name="assessment_count"/>
+                <field name="project_count"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                </div>
+                                <div class="o_kanban_manage_button_section">
+                                    <a class="o_kanban_manage_toggle_button" href="#">
+                                        <i class="fa fa-ellipsis-v" role="img" 
+                                           aria-label="Manage" title="Manage"/>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="o_kanban_record_body">
+                                <field name="industry_type"/>
+                                <br/>
+                                <div class="o_kanban_tags_section">
+                                    <field name="maturity_level" widget="badge"/>
+                                </div>
+                                <br/>
+                                <div class="text-muted">
+                                    Digital Maturity: <field name="digital_maturity_score"/>%
+                                </div>
+                            </div>
+                            
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                    <span class="badge badge-pill">
+                                        <i class="fa fa-clipboard-list" title="Assessments"/>
+                                        <field name="assessment_count"/> Assessments
+                                    </span>
+                                    <span class="badge badge-pill ml-1">
+                                        <i class="fa fa-project-diagram" title="Projects"/>
+                                        <field name="project_count"/> Projects
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_client_company_search" model="ir.ui.view">
+        <field name="name">dt.client.company.search</field>
+        <field name="model">dt.client.company</field>
+        <field name="arch" type="xml">
+            <search string="Search Clients">
+                <field name="name" string="Company"/>
+                <field name="partner_id" string="Contact"/>
+                <field name="industry_type"/>
+                
+                <filter string="Active Clients" name="active_clients" 
+                        domain="[('status', '=', 'active')]"/>
+                <filter string="Under Assessment" name="under_assessment" 
+                        domain="[('status', '=', 'assessment')]"/>
+                <filter string="Prospects" name="prospects" 
+                        domain="[('status', '=', 'prospect')]"/>
+                
+                <separator/>
+                <filter string="High Maturity" name="high_maturity" 
+                        domain="[('digital_maturity_score', '>=', 65)]"/>
+                <filter string="Low Maturity" name="low_maturity" 
+                        domain="[('digital_maturity_score', '&lt;', 45)]"/>
+                
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="group_status" 
+                            context="{'group_by': 'status'}"/>
+                    <filter string="Industry" name="group_industry" 
+                            context="{'group_by': 'industry_type'}"/>
+                    <filter string="Company Size" name="group_size" 
+                            context="{'group_by': 'company_size'}"/>
+                    <filter string="Maturity Level" name="group_maturity" 
+                            context="{'group_by': 'maturity_level'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action for Client Companies -->
+    <record id="action_client_company" model="ir.actions.act_window">
+        <field name="name">Client Companies</field>
+        <field name="res_model">dt.client.company</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add your first client company!
+            </p>
+            <p>
+                Start by adding client companies to track their digital transformation journey.
+                You can assess their current digital maturity and manage transformation projects.
+            </p>
+        </field>
+    </record>
+</odoo>

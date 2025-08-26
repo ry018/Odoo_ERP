@@ -1,0 +1,30 @@
+.dt_dashboard_card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin: 10px;
+}
+
+.dt_metric_card {
+    text-align: center;
+    padding: 15px;
+}
+
+.dt_metric_number {
+    font-size: 2em;
+    font-weight: bold;
+    color: #875a7b;
+}
+
+.dt_metric_label {
+    color: #666;
+    margin-top: 5px;
+}
+
+.dt_status_badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: bold;
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Dashboard Action -->
+    <record id="action_dt_dashboard_window" model="ir.actions.act_window">
+        <field name="name">Digital Transformation Dashboard</field>
+        <field name="res_model">dt.project</field>
+        <field name="view_mode">list,kanban,form</field>
+        <!-- <field name="view_id" ref="digital_transformation_accelerator.view_transformation_project_list"/> -->
+
+    </record>
+</odoo>

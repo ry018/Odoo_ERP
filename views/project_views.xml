@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Project Form View -->
+    <record id="view_transformation_project_form" model="ir.ui.view">
+        <field name="name">dt.project.form</field>
+        <field name="model">dt.project</field>
+        <field name="arch" type="xml">
+            <form string="Digital Transformation Project">
+                <header>
+                    <button name="action_start" string="Start Project" 
+                            type="object" class="btn-primary" 
+                            invisible="state != 'draft'"/>
+                    <button name="action_complete" string="Complete Project" 
+                            type="object" class="btn-primary" 
+                            invisible="state != 'in_progress'"/>
+                    <field name="state" widget="statusbar" 
+                           statusbar_visible="draft,in_progress,on_hold,completed,cancelled"/>
+                </header>
+                
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <field name="progress" string="Progress" widget="statinfo" class="oe_stat_button"/>
+                    </div>
+                    
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Project Name..."/></h1>
+                        <h3><field name="client_id" placeholder="Select Client..."/></h3>
+                    </div>
+                    
+                    <group>
+                        <group string="Project Details">
+                            <field name="assessment_id" domain="[('client_id', '=', client_id)]"/>
+                            <field name="project_manager_id"/>
+                            <field name="risk_level" widget="badge"/>
+                        </group>
+                        
+                        <group string="Timeline/Budget">
+                            <field name="start_date"/>
+                            <field name="target_completion_date"/>
+                            <field name="actual_completion_date" invisible="state != 'completed'"/>
+                            <field name="duration_months"/>
+                            <field name="estimated_budget" widget="monetary"/>
+                            <field name="actual_budget" widget="monetary"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    
+                    <group string="Team">
+                        <field name="team_members" widget="many2many_tags"/>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Project Overview">
+                            <group>
+                                <group string="Description">
+                                    <field name="description" nolabel="1"/>
+                                </group>
+                                <group string="Objectives">
+                                    <field name="objectives" nolabel="1"/>
+                                </group>
+                            </group>
+                            <group string="Scope">
+                                <field name="scope" nolabel="1"/>
+                            </group>
+                        </page>
+                        
+                        <page string="Project Phases">
+                            <field name="phase_ids" nolabel="1">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/> 
+                                    <field name="name"/>
+                                    <field name="responsible_id"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="progress"/>
+                                    <field name="progress" widget="progressbar" readonly="1"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                        
+                        <page string="Deliverables">
+                            <field name="deliverable_ids" nolabel="1">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="responsible_id"/>
+                                    <field name="due_date"/>
+                                    <field name="delivery_date"/>
+                                    <field name="state" />
+                                    <field name="document_url"/>
+                                </list>
+                            </field>
+                        </page>
+                        
+                        <page string="Milestones">
+                            <field name="milestone_ids" nolabel="1">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="target_date"/>
+                                    <field name="actual_date"/>
+                                    <field name="importance"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                        
+                        <page string="Risk Management">
+                            <group>
+                                <group string="Risks">
+                                    <field name="risks" nolabel="1" 
+                                           placeholder="Identify project risks..."/>
+                                </group>
+                                <group string="Mitigation">
+                                    <field name="mitigation_plans" nolabel="1" 
+                                           placeholder="Mitigation strategies..."/>
+                                </group>
+                            </group>
+                        </page>
+                        
+                        <page string="Client Feedback">
+                            <group>
+                                <group>
+                                    <field name="satisfaction_score"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="client_feedback" nolabel="1" 
+                                       placeholder="Client feedback and comments..."/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                
+                <!-- <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div> -->
+            </form>
+        </field>
+    </record>
+
+    <!-- Project List View -->
+    <record id="view_transformation_project_list" model="ir.ui.view">
+        <field name="name">dt.project.list</field>
+        <field name="model">dt.project</field>
+        <field name="arch" type="xml">
+            <list string="Digital Transformation Projects">
+                <field name="name"/>
+                <field name="client_id"/>
+                <field name="project_manager_id"/>
+                <field name="start_date"/>
+                <field name="target_completion_date"/>
+                <field name="progress" widget="progressbar"/>
+                <field name="risk_level" widget="badge"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Project Kanban View -->
+    <record id="view_transformation_project_kanban" model="ir.ui.view">
+        <field name="name">dt.project.kanban</field>
+        <field name="model">dt.project</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="client_id"/>
+                <field name="progress"/>
+                <field name="risk_level"/>
+                <field name="project_manager_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                    <br/>
+                                    <field name="client_id"/>
+                                </div>
+                            </div>
+                            
+                            <div class="o_kanban_record_body">
+                                <div class="text-muted">
+                                    PM: <field name="project_manager_id"/>
+                                </div>
+                                <div class="o_kanban_tags_section">
+                                    <field name="risk_level" widget="badge"/>
+                                </div>
+                                <br/>
+                                <div class="text-muted">
+                                    Progress: <field name="progress" widget="progressbar"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Project Action -->
+    <record id="action_transformation_project" model="ir.actions.act_window">
+        <field name="name">Transformation Projects</field>
+        <field name="res_model">dt.project</field>
+        <field name="view_mode">list,kanban,form</field>
+        <!-- <field name="view_ids" eval="[
+        (5, 0, 0),
+        (0, 0, {'view_mode': 'list', 'view_id': ref('digital_transformation_accelerator.view_transformation_project_list')}),
+        (0, 0, {'view_mode': 'form', 'view_id': ref('digital_transformation_accelerator.view_transformation_project_form')}),
+        (0, 0, {'view_mode': 'kanban', 'view_id': ref('digital_transformation_accelerator.view_transformation_project_kanban')})
+        ]"/>     -->
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first transformation project!
+            </p>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Consultant Form View -->
+    <record id="view_consultant_form" model="ir.ui.view">
+        <field name="name">dt.consultant.form</field>
+        <field name="model">dt.consultant</field>
+        <field name="arch" type="xml">
+            <form string="Digital Transformation Consultant">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <!-- Fixed: removed buttons, directly use fields with statinfo widget -->
+                        <field name="projects_managed" string="Projects Managed" widget="statinfo" icon="fa-project-diagram"/>
+                        <field name="projects_participated" string="Total Projects" widget="statinfo" icon="fa-users"/>
+                        <field name="client_satisfaction_avg" string="Satisfaction" widget="statinfo" icon="fa-star"/>
+                    </div>
+                    
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Full Name..."/></h1>
+                        <h3><field name="title" placeholder="Job Title..."/></h3>
+                    </div>
+                    
+                    <group>
+                        <group string="Professional Details">
+                            <field name="employee_id"/>
+                            <field name="user_id"/>
+                            <field name="department"/>
+                            <field name="seniority_level"/>
+                            <field name="hourly_rate" widget="monetary"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        
+                        <group string="Availability">
+                            <field name="availability" widget="badge"/>
+                            <field name="capacity_percentage" widget="progressbar"/>
+                        </group>
+                    </group>
+                    
+                    <group string="Contact Information">
+                        <group>
+                            <field name="email"/>
+                            <field name="phone"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Skills/Expertise">
+                            <group>
+                                <field name="skill_ids" widget="many2many_tags"/>
+                            </group>
+                            <group string="Specialization Areas">
+                                <field name="specialization_areas" nolabel="1" 
+                                       placeholder="Areas of specialization and expertise..."/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                
+                <!-- <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div> -->
+            </form>
+        </field>
+    </record>
+
+    <!-- Consultant List View -->
+    <record id="view_consultant_list" model="ir.ui.view">
+        <field name="name">dt.consultant.list</field>
+        <field name="model">dt.consultant</field>
+        <field name="arch" type="xml">
+            <list string="Consultants">
+                <field name="name"/>
+                <field name="title"/>
+                <field name="department"/>
+                <field name="seniority_level" widget="badge"/>
+                <field name="availability" widget="badge"/>
+                <field name="capacity_percentage" widget="progressbar"/>
+                <field name="projects_managed"/>
+                <field name="client_satisfaction_avg"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Consultant Action -->
+    <record id="action_consultant" model="ir.actions.act_window">
+        <field name="name">Consultants</field>
+        <field name="res_model">dt.consultant</field>
+        <field name="view_mode">list,form</field>
+        <!-- <field name="view_id" ref="digital_transformation_accelerator.view_consultant_list"/> -->
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add your first consultant!
+            </p>
+        </field>
+    </record>
+
+</odoo>

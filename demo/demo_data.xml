@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Skills -->
+        <record id="skill_odoo_implementation" model="dt.skill">
+            <field name="name">Odoo Implementation</field>
+            <field name="category">technical</field>
+            <field name="description">Expert in Odoo ERP implementation and customization</field>
+        </record>
+        
+        <record id="skill_project_management" model="dt.skill">
+            <field name="name">Project Management</field>
+            <field name="category">functional</field>
+            <field name="description">Certified project management professional</field>
+        </record>
+        
+        <record id="skill_business_analysis" model="dt.skill">
+            <field name="name">Business Analysis</field>
+            <field name="category">functional</field>
+            <field name="description">Business process analysis and optimization</field>
+        </record>
+        
+        <!-- Demo Consultants -->
+        <record id="consultant_john_smith" model="dt.consultant">
+            <field name="name">John Smith</field>
+            <field name="title">Senior Digital Transformation Consultant</field>
+            <field name="department">consulting</field>
+            <field name="seniority_level">senior</field>
+            <field name="email">john.smith@apdeops.com</field>
+            <field name="phone">+91-9876543210</field>
+            <field name="hourly_rate">150</field>
+            <field name="availability">available</field>
+            <field name="capacity_percentage">80</field>
+            <field name="skill_ids" eval="[(6, 0, [ref('skill_odoo_implementation'), ref('skill_project_management')])]"/>
+            <field name="specialization_areas">ERP implementations, Digital transformation strategy, Change management</field>
+        </record>
+        
+        <record id="consultant_sarah_johnson" model="dt.consultant">
+            <field name="name">Sarah Johnson</field>
+            <field name="title">Business Analyst</field>
+            <field name="department">business_analysis</field>
+            <field name="seniority_level">consultant</field>
+            <field name="email">sarah.johnson@apdeops.com</field>
+            <field name="phone">+91-9876543211</field>
+            <field name="hourly_rate">120</field>
+            <field name="availability">busy</field>
+            <field name="capacity_percentage">95</field>
+            <field name="skill_ids" eval="[(6, 0, [ref('skill_business_analysis')])]"/>
+            <field name="specialization_areas">Business process mapping, Requirements gathering, Workflow optimization</field>
+        </record>
+        
+    </data>
+</odoo>
