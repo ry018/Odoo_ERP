@@ -5,7 +5,7 @@ class Consultant(models.Model):
     """Consultant/Employee Model for Digital Transformation"""
     _name = 'dt.consultant'
     _description = 'Digital Transformation Consultant'
-    # _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     
     name = fields.Char(string='Full Name', required=True, tracking=True)
     employee_id = fields.Many2one('hr.employee', string='HR Employee Record', ondelete='set null')

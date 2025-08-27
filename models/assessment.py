@@ -6,7 +6,7 @@ class Assessment(models.Model):
     """Digital Maturity Assessment Model"""
     _name = 'dt.assessment'
     _description = 'Digital Transformation Assessment'
-    # _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'assessment_date desc'
 
     name = fields.Char(string='Assessment Name', required=True, tracking=True)

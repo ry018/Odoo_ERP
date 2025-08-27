@@ -9,7 +9,7 @@ class DigitalTransformationProject(models.Model):
     _name = 'dt.project'
     _description = 'Digital Transformation Project'
     _order = 'create_date desc'
-    # _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     # Basic Info
     name = fields.Char(string='Project Name', required=True)
