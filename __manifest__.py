@@ -23,6 +23,7 @@ and ERP implementation services.
         'project',
         'portal',
         'mail',
+        'hr',
     ],
     'data': [
         # Security

@@ -11,7 +11,7 @@ class ClientCompany(models.Model):
     """
     _name = 'dt.client.company'
     _description = 'Digital Transformation Client Company'
-    # _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'name'
 
     # Basic Information
